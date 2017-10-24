@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>rotate_mu</title>
+    <style>
+      html, body {
+        height: 100%;
+      }
+
+      div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      img {
+        -webkit-animation: rotate 4s linear infinite;
+        animation: rotate 4s linear infinite;
+      }
+
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      @-webkit-keyframes rotate {
+        /* webkit用keyframes */
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img src="https://1.bp.blogspot.com/-3wsYvUnKhNE/Wc8f-o6JCrI/AAAAAAABHJw/xo60FyvnUp4DKZ53GOcCAXn1KxcYBbyygCLcBGAs/s400/text_mu.png">
+    </div>
+  </body>
+</html>
