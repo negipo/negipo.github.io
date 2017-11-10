@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>140</title>
+    <style>
+      body {
+        font-size: 22px;
+        font-family: "源暎こぶり明朝 TTF", "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", HiraMinProN-W3, HiraMinProN-W6, "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", HiraMinPro-W3, HiraMinPro-W6, 游明朝体, YuMincho, 游明朝, "Yu Mincho", HG明朝E, HGP明朝E, HGS明朝E, HGMinchoE, HGPMinchoE, HGSMinchoE, HG明朝B, HGP明朝B, HGS明朝B, HGMinchoB, HGPMinchoB, HGSMinchoB, 平成明朝, "平成明朝 Std", "平成明朝 Pro", "Heisei Mincho", "Heisei Mincho Std", "Heisei Mincho Pro", IPA明朝, IPAMincho, "georgia ref", "times new roman", serif;
+        line-height: 1.7em;
+        color: #333;
+        padding: 0;
+        margin: 0;
+      }
+      .memo {
+        width: 100%;
+        height: 50px;
+      }
+      .wrapper {
+        box-sizing: border-box;
+        width: 640px;
+        margin: 0 auto;
+        border-left: 1px solid #c0c0c0;
+        border-right: 1px solid #c0c0c0;
+        padding: 10px;
+        height: 1000px;
+      }
+      .text {
+        width: 100%;
+        height: 200px;
+      }
+      .content {
+        direction: ltr;
+        writing-mode: vertical-rl;
+        column-gap: 40px;
+        column-fill: auto;
+        border: 1px solid #ccc;
+        overflow: scroll;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        padding: 20px;
+      }
+      .content.ok {
+        border: 1px solid darkorange;
+      }
+      .counter {
+        font-size: 16px;
+        color: #666666;
+        text-align: right;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+      var maxSize = 140;
+      jQuery(function() {
+        $('.text').on('keydown', function(e) {
+          var text = $(this).val();
+          $('.counter').text(maxSize - text.length);
+          if(text.length == maxSize) {
+            $('.content').addClass('ok');
+          } else {
+            $('.content').removeClass('ok');
+          }
+
+          var texts = [];
+          var buf = '';
+          text.split('').forEach(function(s) {
+            buf += s;
+            if(buf.length == 14) {
+              texts.push(buf);
+              buf = ''
+            }
+          });
+          if(buf.length > 0) {
+            texts.push(buf);
+          }
+          $('.content').html(texts.join('<br />'));
+        });
+        $('.memo').on('focusout', function() {
+          console.log('hi');
+          $.cookie('140_memo', $(this).val());
+        });
+        $('.memo').val($.cookie('140_memo'));
+        $('.text').focus();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <textarea class="memo" placeholder="メモ"></textarea>
+      <div class="counter">140</div>
+      <textarea class="text"></textarea>
+      <div class="content"></div>
+    </div>
+  </body>
+</html>
