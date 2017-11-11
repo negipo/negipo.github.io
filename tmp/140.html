@@ -41,6 +41,7 @@
         text-justify: inter-ideograph;
         padding: 40px;
         margin: 0 auto;
+        margin-bottom: 20px;
       }
       .content.ok {
         border: 1px solid darkorange;
@@ -49,6 +50,29 @@
         font-size: 16px;
         color: #666666;
         text-align: right;
+      }
+      .color_wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .button {
+        box-sizing: border-box;
+        padding: 10px 2px;
+        border-radius: 4px;
+        border: 1px solid #666;
+        font-family: sans-serif;
+        font-size: 12px;
+        margin: 5px;
+        line-height: 1em;
+        cursor: pointer;
+        width: 65px;
+        text-align: center;
+      }
+
+      .random_color {
+        color: darkorange;
+        border: 1px solid darkorange;
       }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -94,6 +118,28 @@
         });
         update();
         $('.text').focus();
+
+        var updateColor = (function(r, g, b) {
+          var color = '#333';
+          if((r + g + b) / 3 < 128) {
+            color = '#fff';
+          }
+
+          $('.content').css({
+            'background-color': 'rgb(' + r + ',' + g + ',' + b + ')',
+            'color': color
+          });
+        });
+        $('.random_color').bind('click', function() {
+          updateColor(
+            Math.floor(Math.random() * 256),
+            Math.floor(Math.random() * 256),
+            Math.floor(Math.random() * 256)
+          );
+        });
+        $('.white_color').bind('click', function() {
+          updateColor(255, 255, 255);
+        });
       });
     </script>
   </head>
@@ -103,6 +149,10 @@
       <div class="counter">140</div>
       <textarea class="text"></textarea>
       <div class="content"></div>
+      <div class="color_wrapper">
+        <div class="random_color button">random</div>
+        <div class="white_color button">white</div>
+      </div>
     </div>
   </body>
   <!--
