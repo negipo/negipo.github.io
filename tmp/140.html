@@ -58,6 +58,9 @@
       jQuery(function() {
         $('.memo').val($.cookie('140_memo'));
         $('.text').val($.cookie('140_text'));
+        if(location.search) {
+          $('body').css({'font-family': location.search.replace('?', '')})
+        }
 
         var update = (function(e) {
           var text = $('.text').val();
