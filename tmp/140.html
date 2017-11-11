@@ -22,13 +22,13 @@
         margin: 0 auto;
         border-left: 1px solid #c0c0c0;
         border-right: 1px solid #c0c0c0;
-        padding: 10px;
+        padding: 20px;
         height: 1000px;
       }
       .text {
         width: 100%;
-        height: 200px;
-        margin-bottom: 20px;
+        height: 100px;
+        margin-bottom: 40px;
       }
       .content {
         direction: ltr;
@@ -39,7 +39,7 @@
         overflow: scroll;
         text-align: justify;
         text-justify: inter-ideograph;
-        padding: 20px;
+        padding: 40px;
         margin: 0 auto;
       }
       .content.ok {
@@ -56,8 +56,12 @@
     <script>
       var maxSize = 140;
       jQuery(function() {
-        $('.text').on('keydown', function(e) {
-          var text = $(this).val();
+        $('.memo').val($.cookie('140_memo'));
+        $('.text').val($.cookie('140_text'));
+
+        var update = (function(e) {
+          var text = $('.text').val();
+
           $('.counter').text(maxSize - text.length);
           if(text.length == maxSize) {
             $('.content').addClass('ok');
@@ -80,12 +84,12 @@
           $('.content').html(texts.join('<br />'));
           $.cookie('140_text', text);
         });
+
+        $('.text').on('keyup', update);
         $('.memo').on('focusout', function() {
-          console.log('hi');
           $.cookie('140_memo', $(this).val());
         });
-        $('.memo').val($.cookie('140_memo'));
-        $('.text').val($.cookie('140_text'));
+        update();
         $('.text').focus();
       });
     </script>
