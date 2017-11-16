@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <style>
+      #color_sample {
+        padding: 20px;
+        display: inline-block;
+        font-size: 18px;
+      }
+      #color_code {
+        font-size: 16px;
+        padding: 2px;
+        margin-right: 12px;
+      }
+    </style>
+    <input type="text" name="" id="color_code" value="ffaf00" width="6">
+    <div id="color_sample">
+      トクバイ
+    </div>
+    <script>
+      var code = document.querySelector('#color_code');
+      var sample = document.querySelector('#color_sample');
+
+      function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : null;
+      }
+
+      var applyCode = function() {
+        var rgb  = hexToRgb(code.value);
+        console.log(code.value);
+        console.log(rgb);
+        if(!rgb) {
+          return;
+        }
+        var color = '3c3c32';
+        if(((rgb.r + rgb.g + rgb.b) / 3) < 128) {
+          color = 'ffffff';
+        }
+        sample.style.color = '#' + color;
+        sample.style.backgroundColor = '#' + code.value;
+      };
+
+      code.addEventListener('keyup', function(e) {
+        applyCode();
+      });
+
+      applyCode();
+    </script>
+  </body>
+</html>
